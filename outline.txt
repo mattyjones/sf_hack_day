@@ -1,0 +1,115 @@
+How do you manually manage 100+ people, over a dozen teams, and who knows how many services and escalation policies in Pagerduty? Certainly not by hand, you need to automate that. The problem is that not many people have done it yet, or at least done it and open sourced the code.
+
+My team inherited this type of a Pagerduty configuration with the mandate to make is stable with the ability to fork-lift it into another account if needed. This means we needed to automate only the Pagerduty users and other entities we were responsible for but leave everything else alone. Simple, right?
+
+Ansible was the tool chosen for this but no capability existed yet to manage Pagerduty in this way so I set about writing a series of modules to do this. The lessons I learned and problems I had to solve in order to do this properly tell quite a story of how to scope a project effectively, how to handle management that wants a push button solution, how to write something for the community and your company that won't get you laughed at by the everyone, and most importantly...whitespace...lots and lots of whitespace.
+
+
+OUTLINE
+
+------------------------------------------------------------------------------------
+# PART 1 OVERVIEW
+------------------------------------------------------------------------------------
+
+## Background
+- tool developer
+
+## Terms
+- immutable
+- config management
+- orcestration
+- framework
+
+## Problem I need to solve
+- forklift
+- operational contact directory
+- stability
+- compliance
+- team mandate for user management
+
+## What is Pagerduty
+- send it alerts it yells at you
+- generate alerts via ui or api it yells at you
+- (you get the point, it yells at you)
+
+## What Is Ansible
+- configuration and or orcestration tool (no holy war, it's a freaking tool)
+
+## Why I chose Ansible over Terraform
+- I like Python
+- Chef was not an option
+- I don't know Puppet, ramp up time, client based
+- I needed a framework for lot of other things as well
+- Terraform had regressions bugs I would of needed to fix
+- My Python was stronger than my Golang
+- Ansible is a framework, terraform is part of a framework (IMHO)
+
+------------------------------------------------------------------------------------
+# PART 2 WORK
+------------------------------------------------------------------------------------
+## Scope
+- manage user contact info
+- manage team membership
+
+## Definition of done
+- repo for storing info
+- documentation for project
+- running product
+- no tests :(
+
+## Code Design
+- each endpoint is a module (3)
+- common library
+
+## Problems
+- existing pagerduty cruft (how did I work around it)
+- learning how to do this in a immutable fashion
+- api was hard to manage for contact info
+
+## Refactoring
+- I had to go back several times and fix things
+- Should of thought more before I coded
+
+------------------------------------------------------------------------------------
+# PART 3 lessons
+------------------------------------------------------------------------------------
+
+## The Good
+- wrote Python again after several years of Ruby and Golang
+- learned about Ansible at a low level
+- got to learn about immutable infrastructure from a new perspective (as a dev)
+- had fun
+- got to incorporate some of my ideas about lean enterprise at a small simple scale
+- learned a lot about my boss (all good)
+
+## The Bad
+- took longer than I thought
+- required too much refactoring (should of planned more and coded less)
+- feature creep was hard for me to avoid
+- management expectations vs what was possible in reality were tough to manage
+- I needed to be careful not to over sell my skills or what the product could do
+
+## WTF
+- project management and developing is hard
+- largest thing I have done solely on my own without training wheels
+- legal, patents, GPLv3 sucks (took a month to make its way through legal)
+- security was all over me about coding practices and deployment issues (token management, secret management)
+- large company problems: who will own this, who will fix this, why build when you can buy, is this needed
+
+------------------------------------------------------------------------------------
+# PART 4 Take away
+------------------------------------------------------------------------------------
+
+- don't be afraid to fail fast and pivot
+- dont be afraid to over sell yourself in a calculated fashion to get the project you wants
+- know your audience
+- plan before coding
+
+------------------------------------------------------------------------------------
+# PART 5 Questions
+------------------------------------------------------------------------------------
+
+- link to the code
+- link to the presentation
+- questions
+- always hiring
